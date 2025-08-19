@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FindingHub - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    </head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">FindingHub</div>
+    <div class="nav-links">
+      <a href="index.php">Home</a>
+      <a href="reportitem.php">Report items</a>
+      <a href="viewlistining.php">View Listing</a>
+      <!-- Toggle Button -->
+      <button class="toggle-btn" id="authToggle"></button>
+    </div>
+  </nav>
+
+  <!-- Login Form -->
+  <section class="login-container">
+    <div class="login-box">
+      <h2>Welcome Back</h2>
+      <form>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+
+        <button type="submit">signin</button>
+      </form>
+      <div class="login-footer">
+        Don't have an account? <a href="Signup.php">Signup here</a>
+      </div>
+    </div>
+  </section>

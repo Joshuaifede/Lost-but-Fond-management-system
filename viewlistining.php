@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FindingHub - ESUT Lost but Found Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f5f5f5;
+        color: #222;
+        line-height: 1.6;
+      }
+
+      /* Navbar Styles */
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #2d0475;
+        color: #fff;
+        padding: 1rem 2rem;
+        position: relative;
+      }
+
+      .logo {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #fff;
+        letter-spacing: 1px;
+        white-space: nowrap;
+      }
+
+      nav {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-links li a {
+        color: #2d0475;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .nav-links li a:hover,
+      .nav-links li a.active {
+        background: red;
+        color: #fff;
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .auth-buttons a {
+        background: #fff;
+        color: #2d0475;
+        padding: 0.4rem 1.2rem;
+        border-radius: 20px;
+        font-weight: 500;
+        transition: background 0.2s, color 0.2s;
+        white-space: nowrap;
+      }
+
+      .auth-buttons a:hover {
+        background: #2d0475;
+        color: #fff;
+      }
+
+      .toggle-btn {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        margin-left: 1.5rem;
+      }
+      .toggle-btn span {
+        height: 3px;
+        width: 25px;
+        background: #fff;
+        margin: 4px 0;
+        border-radius: 20px;
+        transition: 0.3s;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* Responsive Navbar */
+      @media (max-width: 900px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 1rem;
+        }
+        nav {
+          width: 100%;
+          justify-content: flex-end;
+        }
+        .nav-links {
+          position: absolute;
+          top: 70px;
+          left: 0;
+          width: 100%;
+          background: #2d0475;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.5rem;
+          padding: 1.5rem 0;
+          display: none;
+          z-index: 100;
+        }
+        .nav-links.active {
+          display: flex;
+        }
+        .toggle-btn {
+          display: flex;
+        }
+        .auth-buttons {
+          margin-top: 1rem;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .logo {
+          font-size: 1.3rem;
+        }
+        .auth-buttons a {
+          padding: 0.3rem 0.7rem;
+          font-size: 0.95rem;
+        }
+        .nav-links li a {
+          font-size: 1rem;
+          padding: 0.4rem 0.8rem;
+        }
+      }
+
+      /* Main Content Styles */
+      main {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        margin-bottom: 1.5rem;
+        color: #2d0475;
+        text-align: center;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        margin: 2rem 0 1rem;
+        color: #2d0475;
+        border-bottom: 2px solid #2d0475;
+        padding-bottom: 0.5rem;
+      }
+
+      /* Image Slider Styles */
+      .slider-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        margin: 2rem 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .slider {
+        display: flex;
+        height: 300px;
+      }
+
+      .slider img {
+        min-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 8px;
+      }
+
+      /* Categories Section - Horizontal Scroll */
+      .categories {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 1.5rem;
+        margin: 2rem 0;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        position: relative;
+      }
+      .categories::-webkit-scrollbar {
+        display: none;
+      }
+
+      .category-card {
+        min-width: 260px;
+        max-width: 300px;
+        background-color: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .category-card img {
+        width: 100%;
+        max-width: 200px;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        object-fit: cover;
+      }
+
+      .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .category-card h3 {
+        margin-bottom: 1rem;
+        color: #2d0475;
+        font-size: 1.1rem;
+      }
+
+      /* Responsive Images and Cards */
+      @media (max-width: 900px) {
+        .slider {
+          height: 200px;
+        }
+        .categories {
+          gap: 1rem;
+        }
+        .category-card {
+          min-width: 180px;
+          max-width: 220px;
+          padding: 1rem;
+        }
+        .category-card img {
+          max-width: 120px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        main {
+          padding: 0.5rem;
+        }
+        .slider {
+          height: 120px;
+        }
+        .slider img {
+          border-radius: 6px;
+        }
+        .categories {
+          gap: 0.7rem;
+        }
+        .category-card {
+          min-width: 140px;
+          max-width: 160px;
+          padding: 0.7rem;
+        }
+        .category-card img {
+          max-width: 100%;
+          border-radius: 6px;
+        }
+        .category-card h3 {
+          font-size: 0.95rem;
+        }
+        .category-card p {
+          font-size: 0.85rem;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .slider {
+          height: 80px;
+        }
+        .category-card {
+          min-width: 100px;
+          max-width: 120px;
+          padding: 0.4rem;
+        }
+        .category-card img {
+          max-width: 50px;
+        }
+        .category-card h3 {
+          font-size: 0.8rem;
+        }
+        .category-card p {
+          font-size: 0.7rem;
+        }
+      }
+
+      /* Footer Styles */
+      footer {
+        background-color: #2d0475;
+        color: white;
+        padding: 3rem 2rem 1rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-column h3 {
+        margin-bottom: 1.5rem;
+        font-size: 1.2rem;
+        color: #f1f1f1;
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 0.8rem;
+      }
+
+      .footer-column ul li a {
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: red;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          padding: 1rem;
+        }
+
+        nav ul {
+          margin-top: 1rem;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        nav ul li {
+          margin: 0.5rem;
+        }
+
+        .auth-buttons {
+          margin-top: 1rem;
+        }
+
+        .slider {
+          height: 200px;
+        }
+
+        .footer-content {
+          grid-template-columns: 1fr;
+        }
+
+        .categories {
+          gap: 1rem;
+        }
+        .category-card {
+          min-width: 220px;
+          max-width: 260px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .logo {
+          font-size: 1.5rem;
+        }
+
+        .slider {
+          height: 150px;
+        }
+
+        .categories {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">FindingHub</div>
+        <ul class="nav-links">
+          <li>
+            <button class="close-nav" id="closeNavBtn" aria-label="Close Menu">&times;</button>
+          </li>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="reportitem.php">Report items</a></li>
+          <li><a href="viewlistining.php" class="active">View Listing</a></li>
+        </ul>
+        <div class="auth-buttons">
+          <a href="signup.php">SignUp</a>
+          <a href="signin.php">SignIn</a>
+        </div>
+        <div class="toggle-btn" id="toggleBtn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <h1>ESUT Lost But Found Management System</h1>
+
+      <!-- Image -->
+      <div class="slider-container">
+        <div class="slider">
+          <img src="./images/original-869b47bb3c5022de7156dc7c048d7f6f.webp" alt="Lost items" />
+      </div>
+
+      <h2 class="section-title">Lost Items</h2>
+      <div class="categories" id="categories-scroll-lost">
+        <div class="category-card">
+          <img src="./images/Rectangle 36 (1).png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Atm Card</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 36.png" alt="" />
+          <h3>Category: Documents</h3>
+          <p>Textbook</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 37 (1).png" alt="" />
+          <h3>Category: Electronics</h3>
+          <p>Iphone Phone Pack</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 37.png" alt="" />
+          <h3>Category: Electronics</h3>
+          <p>Laptop</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 38 (1).png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Sun Glasses</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 38.png" alt="" />
+          <h3>Category: Documents</h3>
+          <p>Receipt</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/unsplash_SxAXphIPWeg (1).png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>umbrella</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/unsplash_SxAXphIPWeg.png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Item: white Nike Shoes</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/unsplash_xzrJCS4grC4 (1).png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Wallet</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/unsplash_xzrJCS4grC4.png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>School Bag</p>
+        </div>
+      </div>
+
+      <h2 class="section-title">found Items</h2>
+      <div class="categories" id="categories-scroll-found">
+        <div class="category-card">
+          <img src="./images/Rectangle 39.png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Key</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 41.png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Pen</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 42.png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Notebook and medicated Glasses</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 43.png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Item:Pair of Shoe</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 44.png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>wrist watch</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 39 (1).png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Jacket</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 41 (1).png" alt="" />
+          <h3>Category: Electronics</h3>
+          <p>Calculator</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 42 (1).png" alt="" />
+          <h3>Category: Electronics</h3>
+          <p>Item:Headset</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 43 (1).png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Facecap</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 44 (1).png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Water Bottle</p>
+        </div>
+      </div>
+
+       <h2 class="section-title">Recently added Items</h2>
+      <div class="categories" id="categories-scroll-recent">
+        <div class="category-card">
+          <img src="./images/unsplash_xzrJCS4grC4 (2).png" alt="" />
+          <h3>Category: Recent Finds</h3>
+          <p>Item found in the last 7 days</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 45.png" alt="" />
+          <h3>Category: Claimed</h3>
+          <p>Successfully reunited items</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 45 (1).png" alt="" />
+          <h3>Category: Claimed</h3>
+          <p>Found at Library on August 15</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 46.png" alt="" />
+          <h3>Category: Lost Item</h3>
+          <p>Lost at Cafeteria on August 14</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 46 (1).png" alt="" />
+          <h3>Category: Found Items</h3>
+          <p>Found at Admin Block on August 13</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 47.png" alt="" />
+          <h3>Category: Fond Items</h3>
+          <p>Found at the school gate on July 23</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 48.png" alt="" />
+          <h3>Category: Lost Item</h3>
+          <p>Lost at the Gym center on May 18</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 48 (1).png" alt="" />
+          <h3>Category: Electronics</h3>
+          <p>Item:Iphone</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/unsplash_xzrJCS4grC4 (3).png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Purse</p>
+        </div>
+        <div class="category-card">
+          <img src="./images/Rectangle 47 (1).png" alt="" />
+          <h3>Category: Personal Items</h3>
+          <p>Textbook</p>
+        </div>
+      </div>
+      
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Help</h3>
+          <ul>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Contact Support</a></li>
+            <li><a href="#">How to Report</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Items Recalls</h3>
+          <ul>
+            <li><a href="#">View All Recalls</a></li>
+            <li><a href="#">Report Recall</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Accessibility</h3>
+          <ul>
+            <li><a href="#">Accessibility Features</a></li>
+            <li><a href="#">Feedback</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>AdChoices</h3>
+          <ul>
+            <li><a href="#">Advertising Preferences</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#">Terms of use</a></li>
+            <li><a href="#">Privacy Notice</a></li>
+            <li><a href="#">Delete Account</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          © 2025 FindingHub. A Web-Based Lost But Found Management System For
+          ESUT All Rights Reserved.
+        </p>
+      </div>
+    </footer>
+    <script>
+      // Infinite horizontal auto-scroll for multiple .categories sections
+      function setupInfiniteScroll(containerId) {
+        const categories = document.getElementById(containerId);
+        if (!categories) return;
+        categories.innerHTML += categories.innerHTML;
+        let scrollAmount = 0;
+        const scrollStep = 1;
+        const resetPoint = categories.scrollWidth / 2;
+        function autoScroll() {
+          scrollAmount += scrollStep;
+          if (scrollAmount >= resetPoint) scrollAmount = 0;
+          categories.scrollLeft = scrollAmount;
+          requestAnimationFrame(autoScroll);
+        }
+        autoScroll();
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        setupInfiniteScroll("categories-scroll-lost");
+        setupInfiniteScroll("categories-scroll-found");
+        setupInfiniteScroll("categories-scroll-recent");
+
+        // Hamburger menu functionality
+        const toggleBtn = document.getElementById('toggleBtn');
+        const navLinks = document.querySelector('.nav-links');
+        const closeNavBtn = document.getElementById('closeNavBtn');
+        toggleBtn.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+        });
+
+        // Close nav when a link is clicked (for mobile UX)
+        navLinks.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+              navLinks.classList.remove('active');
+            }
+          });
+        });
+
+        // Close nav on close button click
+        if (closeNavBtn) {
+          closeNavBtn.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
+</html>

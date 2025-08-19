@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+  <title>FindingHub - Lost & Found</title>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">FindingHub</div>
+    <ul class="nav-links">
+      <li>
+        <button class="close-nav" id="closeNavBtn" aria-label="Close Menu">&times;</button>
+      </li>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="reportitem.php">Report items</a></li>
+      <li><a href="viewlistining.php">View Listing</a></li>
+    </ul>
+    <div class="auth-buttons">
+      <a href="signup.php">SignUp</a>
+      <a href="signin.php">SignIn</a>
+    </div>
+    <div class="toggle-btn" id="toggleBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>A Web-Based Lost But Found Management System For ESUT</h1>
+    <p>Easily report and retrieve lost items with our system.</p>
+  </section>
+
+  <div class="slider-container">
+        <div class="slider">
+          <img src="./images/original-869b47bb3c5022de7156dc7c048d7f6f.webp" alt="Lost items" />
+      </div>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature-card">
+      <h3>Easy Reporting</h3>
+      <p>Quickly submit lost and found report</p>
+    </div>
+    <div class="feature-card">
+      <h3>Verified Listings</h3>
+      <p>Ensuring accurate and valid reports.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Secure System</h3>
+      <p>Your data is safe and protected.</p>
+    </div>
+  </section>
+
+   <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Help</h3>
+          <ul>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Contact Support</a></li>
+            <li><a href="#">How to Report</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Items Recalls</h3>
+          <ul>
+            <li><a href="#">View All Recalls</a></li>
+            <li><a href="#">Report Recall</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Accessibility</h3>
+          <ul>
+            <li><a href="#">Accessibility Features</a></li>
+            <li><a href="#">Feedback</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>AdChoices</h3>
+          <ul>
+            <li><a href="#">Advertising Preferences</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#">Terms of use</a></li>
+            <li><a href="#">Privacy Notice</a></li>
+            <li><a href="#">Delete Account</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          © 2025 FindingHub. A Web-Based Lost But Found Management System For
+          ESUT All Rights Reserved.
+        </p>
+      </div>
+    </footer>
+    <script>
+    // Responsive navbar toggle
+    window.addEventListener("DOMContentLoaded", () => {
+      const toggleBtn = document.getElementById('toggleBtn');
+      const navLinks = document.querySelector('.nav-links');
+      const closeNavBtn = document.getElementById('closeNavBtn');
+      if (toggleBtn && navLinks) {
+        toggleBtn.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+        });
+        // Close nav on link click (mobile UX)
+        navLinks.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+          });
+        });
+        // Close nav on close button click
+        if (closeNavBtn) {
+          closeNavBtn.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+          });
+        }
+      }
+    });
+    </script>
+</body>
+</html>
