@@ -16,7 +16,7 @@
         <button class="close-nav" id="closeNavBtn" aria-label="Close Menu">&times;</button>
       </li>
       <li><a href="index.html">Home</a></li>
-      <li><a href="./api/index.php" class="active">Report items</a></li>
+      <li><a href="./api/reportitems.php" class="active">Report items</a></li>
       <li><a href="viewlistining.html">View Listing</a></li>
     </ul>
     <div class="auth-buttons">
