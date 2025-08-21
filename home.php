@@ -15,13 +15,35 @@
       <li>
         <button class="close-nav" id="closeNavBtn" aria-label="Close Menu">&times;</button>
       </li>
-      <li><a href="home.html" class="active">Home</a></li>
       <li><a href="./api/reportitems.php">Report items</a></li>
       <li><a href="viewlistining.html">View Listing</a></li>
     </ul>
     <div class="auth-buttons">
       <a href="signup.html">SignUp</a>
       <a href="signin.html">SignIn</a>
+    </div>
+    <div class="toggle-btn" id="toggleBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>A Web-Based Lost But Found Management System For ESUT</h1>
+    <p>Easily report and retrieve lost items with our system.</p>
+  </section>
+
+  <div class="slider-container">
+        <div class="slider">
+      <li><a href="home.php" class="active">Home</a></li>
+      <li><a href="./api/reportitems.php">Report items</a></li>
+      <li><a href="viewlistining.php">View Listing</a></li>
+    </ul>
+    <div class="auth-buttons">
+      <a href="signup.php">SignUp</a>
+      <a href="signin.php">SignIn</a>
     </div>
     <div class="toggle-btn" id="toggleBtn">
       <span></span>

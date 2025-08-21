@@ -13,7 +13,6 @@
   <nav class="navbar">
     <div class="logo">FindingHub</div>
     <div class="nav-links">
-      <a href="home.html">Home</a>
       <a href="./api/reportitems.php">Report items</a>
       <a href="viewlistining.html">View Listing</a>
       <!-- Toggle Button -->
@@ -36,6 +35,31 @@
       </form>
       <div class="login-footer">
         Don't have an account? <a href="Signup.html">Signup here</a>
+      </div>
+    </div>
+      <a href="home.php">Home</a>
+      <a href="./api/reportitems.php">Report items</a>
+      <a href="viewlistining.php">View Listing</a>
+      <!-- Toggle Button -->
+      <button class="toggle-btn" id="authToggle"></button>
+    </div>
+  </nav>
+
+  <!-- Login Form -->
+  <section class="login-container">
+    <div class="login-box">
+      <h2>Welcome Back</h2>
+      <form>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+
+        <button type="submit">signin</button>
+      </form>
+      <div class="login-footer">
+        Don't have an account? <a href="signup.php">Signup here</a>
       </div>
     </div>
   </section>
